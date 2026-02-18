@@ -1,8 +1,6 @@
 package com.narxoz.rpg.enemy;
 
-import com.narxoz.rpg.combat.Ability;
 import com.narxoz.rpg.loot.LootTable;
-
 import java.util.List;
 
 /**
@@ -85,5 +83,21 @@ public interface Enemy {
     //
     // Test your clone: modify the clone's abilities.
     // Does the original change? If yes → your copy is too shallow!
+
+    String getName();
+    int getHealth();
+    int getDamage();
+    int getDefense();
+    int getSpeed();
+    String getElement();
+    List<String> getAbilities();
+    LootTable getLootTable();
+    void displayInfo();
+    Enemy clone();
+
+    void multiplyStats(double multiplier);
+    void setElements(String element); 
+    void addAbility(String ability);
+
 
 }
