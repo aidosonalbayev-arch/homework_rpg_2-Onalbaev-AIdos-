@@ -41,5 +41,14 @@ public class ShadowLootTable implements LootTable {
         return clone;
     }
 
+    @Override
+    public String getLootInfo() {
+        StringBuilder info = new StringBuilder("Loot: ");
+        info.append(String.join(", ", items));
+        info.append(" | Gold: ").append(goldDrop);
+        info.append(" | XP: ").append(experienceDrop);
+        return info.toString();
+    }
+
     
 }
