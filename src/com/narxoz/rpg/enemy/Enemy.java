@@ -1,5 +1,6 @@
 package com.narxoz.rpg.enemy;
 
+import com.narxoz.rpg.combat.Ability;
 import com.narxoz.rpg.loot.LootTable;
 import java.util.List;
 
@@ -90,14 +91,12 @@ public interface Enemy {
     int getDefense();
     int getSpeed();
     String getElement();
-    List<String> getAbilities();
+    List<Ability> getAbilities();
     LootTable getLootTable();
     void displayInfo();
     Enemy clone();
-
+    
     void multiplyStats(double multiplier);
-    void setElements(String element); 
-    void addAbility(String ability);
-
-
+    void setElement(String element);
+    void addAbility(Ability ability);
 }
