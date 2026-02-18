@@ -2,9 +2,8 @@ package com.narxoz.rpg.enemy;
 
 import com.narxoz.rpg.combat.Ability;
 import com.narxoz.rpg.loot.LootTable;
-
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Example basic enemy implementation — a simple Goblin.
@@ -23,7 +22,7 @@ import java.util.ArrayList;
  *
  * A Goblin is simple: name, health, damage, defense — done.
  * A regular constructor works fine here:
- *     new Goblin("Forest Goblin")
+ * new Goblin("Forest Goblin")
  *
  * But look at DragonBoss.java... THAT'S where Builder shines!
  * Simple objects don't need Builder. Complex objects do.
@@ -35,23 +34,23 @@ import java.util.ArrayList;
  *
  * Goblin is a GREAT candidate for Prototype pattern!
  * Imagine you need 50 goblins for a dungeon. Instead of:
- *     new Goblin("Goblin 1"), new Goblin("Goblin 2"), ...
+ * new Goblin("Goblin 1"), new Goblin("Goblin 2"), ...
  *
  * You can:
- *     Goblin template = new Goblin("Goblin");
- *     Enemy goblin1 = template.clone();  // Fast!
- *     Enemy goblin2 = template.clone();  // Fast!
+ * Goblin template = new Goblin("Goblin");
+ * Enemy goblin1 = template.clone(); // Fast!
+ * Enemy goblin2 = template.clone(); // Fast!
  *
  * And for variants:
- *     Enemy elite = template.clone();
- *     // modify elite's stats to 2x
+ * Enemy elite = template.clone();
+ * // modify elite's stats to 2x
  *
  * TODO: Implement the clone() method with DEEP COPY.
  * TODO: Create similar basic enemies: Skeleton, Orc, etc.
  * TODO: Consider what needs deep vs shallow copy here.
- *   - Primitive stats (health, damage) → shallow copy is fine
- *   - Ability list → MUST be deep copied!
- *   - LootTable → MUST be deep copied!
+ * - Primitive stats (health, damage) → shallow copy is fine
+ * - Ability list → MUST be deep copied!
+ * - LootTable → MUST be deep copied!
  */
 public class Goblin implements Enemy {
 
@@ -60,6 +59,7 @@ public class Goblin implements Enemy {
     private int damage;
     private int defense;
     private int speed;
+    private String element;
     private List<Ability> abilities;
     private LootTable lootTable;
 
@@ -72,48 +72,61 @@ public class Goblin implements Enemy {
         this.damage = 15;
         this.defense = 5;
         this.speed = 35;
+        this.element = "NONE";
         this.abilities = new ArrayList<>();
         // TODO: Initialize with default abilities
         // TODO: Initialize with default loot table
+    }
+
+    public Goblin(String name, int health, int damage, int defense, int speed,
+        String element, LootTable lootTable) {
+        this.name = name;
+        this.health = health;
+        this.damage = damage;
+        this.defense = defense;
+        this.speed = speed;
+        this.element = element;
+        this.abilities = new ArrayList<>();
+        this.lootTable = lootTable;
     }
 
     // TODO: Implement methods from Enemy interface
     // You need to define those methods in Enemy first!
 
     // Example method structure:
-    public String getName() {
-        return name;
-    }
+    // public String getName() {
+    //     return name;
+    // }
 
-    public int getHealth() {
-        return health;
-    }
+    // public int getHealth() {
+    //     return health;
+    // }
 
-    public void displayInfo() {
-        System.out.println("=== " + name + " (Goblin) ===");
-        System.out.println("Health: " + health + " | Damage: " + damage
-                + " | Defense: " + defense + " | Speed: " + speed);
-        System.out.println("Abilities: " + abilities.size() + " ability(ies)");
-        // TODO: Display abilities details
-        // TODO: Display loot table
-    }
+    // public void displayInfo() {
+    //     System.out.println("=== " + name + " (Goblin) ===");
+    //     System.out.println("Health: " + health + " | Damage: " + damage
+    //             + " | Defense: " + defense + " | Speed: " + speed);
+    //     System.out.println("Abilities: " + abilities.size() + " ability(ies)");
+    //     // TODO: Display abilities details
+    //     // TODO: Display loot table
+    // }
 
     // TODO: Implement clone() for Prototype pattern
     // This is CRITICAL! You must deep copy:
-    //   - The abilities list (create new list, clone each ability)
-    //   - The loot table (clone it)
-    //   - Primitive fields can be copied directly
+    // - The abilities list (create new list, clone each ability)
+    // - The loot table (clone it)
+    // - Primitive fields can be copied directly
     //
     // Example skeleton:
     // public Enemy clone() {
-    //     Goblin copy = new Goblin(this.name);
-    //     copy.health = this.health;
-    //     copy.damage = this.damage;
-    //     copy.defense = this.defense;
-    //     copy.speed = this.speed;
-    //     copy.abilities = ???  // DEEP COPY! Not just = this.abilities!
-    //     copy.lootTable = ???  // DEEP COPY!
-    //     return copy;
+    // Goblin copy = new Goblin(this.name);
+    // copy.health = this.health;
+    // copy.damage = this.damage;
+    // copy.defense = this.defense;
+    // copy.speed = this.speed;
+    // copy.abilities = ??? // DEEP COPY! Not just = this.abilities!
+    // copy.lootTable = ??? // DEEP COPY!
+    // return copy;
     // }
 
     // TODO: Add helper methods for Prototype variant creation
@@ -122,4 +135,63 @@ public class Goblin implements Enemy {
     // - void addAbility(Ability ability) — for enhanced variants
     // - void setElement(String element) — for elemental variants
 
+        @Override
+    public String getName() { return name; }
+    @Override
+    public int getHealth() { return health; }
+    @Override
+    public int getDamage() { return damage; }
+    @Override
+    public int getDefense() { return defense; }
+    @Override
+    public int getSpeed() { return speed; }
+    @Override
+    public String getElement() { return element; }
+    @Override
+    public List<Ability> getAbilities() { return new ArrayList<>(abilities); }
+    @Override
+    public LootTable getLootTable() { return lootTable; }
+    
+    @Override
+    public void displayInfo() {
+        System.out.println("=== " + name + " (Goblin) ===");
+        System.out.println("Health: " + health + " | Damage: " + damage + 
+                          " | Defense: " + defense + " | Speed: " + speed);
+        System.out.println("Element: " + element);
+        System.out.println("Abilities (" + abilities.size() + " ability/ies):");
+        for (Ability ability : abilities) {
+            System.out.println("  - " + ability);
+        }
+        if (lootTable != null) {
+            System.out.println(lootTable.getLootInfo());
+        }
+        System.out.println();
+    }
+    
+    @Override
+    public Enemy clone() {
+        Goblin clone = new Goblin(
+            this.name, this.health, this.damage, this.defense, this.speed,
+            this.element, this.lootTable != null ? this.lootTable.clone() : null
+        );
+        
+        for (Ability ability : this.abilities) {
+            clone.abilities.add(ability.clone());
+        }
+        return clone;
+    }
+    
+    @Override
+    public void multiplyStats(double multiplier) {
+        this.health = (int) (this.health * multiplier);
+        this.damage = (int) (this.damage * multiplier);
+        this.defense = (int) (this.defense * multiplier);
+        this.speed = (int) (this.speed * multiplier);
+    }
+    
+    @Override
+    public void setElement(String element) { this.element = element; }
+    
+    @Override
+    public void addAbility(Ability ability) { this.abilities.add(ability); }
 }

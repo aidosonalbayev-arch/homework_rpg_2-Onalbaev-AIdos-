@@ -2,11 +2,10 @@ package com.narxoz.rpg.enemy;
 
 import com.narxoz.rpg.combat.Ability;
 import com.narxoz.rpg.loot.LootTable;
-
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Example complex boss enemy — THE REASON BUILDER PATTERN EXISTS.
@@ -63,30 +62,16 @@ import java.util.HashMap;
  */
 public class DragonBoss implements Enemy {
 
-    // --- Basic Stats ---
     private String name;
     private int health;
     private int damage;
     private int defense;
     private int speed;
-
-    // --- Elemental Theme ---
     private String element;
-
-    // --- Abilities ---
     private List<Ability> abilities;
-
-    // --- Boss Phases (health thresholds that trigger behavior changes) ---
-    // Phase number -> health threshold at which this phase activates
     private Map<Integer, Integer> phases;
-
-    // --- Loot ---
     private LootTable lootTable;
-
-    // --- AI Behavior ---
     private String aiBehavior;
-
-    // --- Special Properties ---
     private boolean canFly;
     private boolean hasBreathAttack;
     private int wingspan;
@@ -105,13 +90,10 @@ public class DragonBoss implements Enemy {
      * either simplified (package-private, called only by Builder)
      * or replaced entirely.
      */
-    public DragonBoss(String name, int health, int damage, int defense,
-                      int speed, String element,
-                      List<Ability> abilities,
-                      int phase1Threshold, int phase2Threshold, int phase3Threshold,
-                      LootTable lootTable, String aiBehavior,
-                      boolean canFly, boolean hasBreathAttack, int wingspan) {
-
+    DragonBoss(String name, int health, int damage, int defense, int speed,
+        String element, List<Ability> abilities, Map<Integer, Integer> phases,
+        LootTable lootTable, String aiBehavior,
+        boolean canFly, boolean hasBreathAttack, int wingspan) {
         this.name = name;
         this.health = health;
         this.damage = damage;
@@ -119,10 +101,7 @@ public class DragonBoss implements Enemy {
         this.speed = speed;
         this.element = element;
         this.abilities = abilities != null ? abilities : new ArrayList<>();
-        this.phases = new HashMap<>();
-        this.phases.put(1, phase1Threshold);
-        this.phases.put(2, phase2Threshold);
-        this.phases.put(3, phase3Threshold);
+        this.phases = phases != null ? phases : new HashMap<>();
         this.lootTable = lootTable;
         this.aiBehavior = aiBehavior;
         this.canFly = canFly;
@@ -132,32 +111,32 @@ public class DragonBoss implements Enemy {
 
     // TODO: Implement methods from Enemy interface
 
-    public String getName() {
-        return name;
-    }
+    // public String getName() {
+    //     return name;
+    // }
 
-    public int getHealth() {
-        return health;
-    }
+    // public int getHealth() {
+    //     return health;
+    // }
 
-    public void displayInfo() {
-        System.out.println("=== " + name + " (Dragon Boss) ===");
-        System.out.println("Health: " + health + " | Damage: " + damage
-                + " | Defense: " + defense + " | Speed: " + speed);
-        System.out.println("Element: " + element);
-        System.out.println("Abilities (" + abilities.size() + "):");
-        // TODO: Display each ability's details
-        System.out.println("Boss Phases: " + phases.size());
-        for (Map.Entry<Integer, Integer> phase : phases.entrySet()) {
-            System.out.println("  Phase " + phase.getKey()
-                    + ": triggers at " + phase.getValue() + " HP");
-        }
-        System.out.println("AI Behavior: " + aiBehavior);
-        System.out.println("Can Fly: " + canFly
-                + " | Breath Attack: " + hasBreathAttack
-                + " | Wingspan: " + wingspan);
-        // TODO: Display loot table
-    }
+    // public void displayInfo() {
+    //     System.out.println("=== " + name + " (Dragon Boss) ===");
+    //     System.out.println("Health: " + health + " | Damage: " + damage
+    //             + " | Defense: " + defense + " | Speed: " + speed);
+    //     System.out.println("Element: " + element);
+    //     System.out.println("Abilities (" + abilities.size() + "):");
+    //     // TODO: Display each ability's details
+    //     System.out.println("Boss Phases: " + phases.size());
+    //     for (Map.Entry<Integer, Integer> phase : phases.entrySet()) {
+    //         System.out.println("  Phase " + phase.getKey()
+    //                 + ": triggers at " + phase.getValue() + " HP");
+    //     }
+    //     System.out.println("AI Behavior: " + aiBehavior);
+    //     System.out.println("Can Fly: " + canFly
+    //             + " | Breath Attack: " + hasBreathAttack
+    //             + " | Wingspan: " + wingspan);
+    //     // TODO: Display loot table
+    // }
 
     // TODO: Implement clone() for Prototype pattern
     // DragonBoss has MANY fields that need deep copying:
@@ -172,5 +151,74 @@ public class DragonBoss implements Enemy {
     // TODO: Add helper methods for variant creation
     // - void setElement(String element) — for elemental variants
     // - void multiplyStats(double multiplier) — for difficulty tiers
+
+    @Override
+    public String getName() { return name; }
+    @Override
+    public int getHealth() { return health; }
+    @Override
+    public int getDamage() { return damage; }
+    @Override
+    public int getDefense() { return defense; }
+    @Override
+    public int getSpeed() { return speed; }
+    @Override
+    public String getElement() { return element; }
+    @Override
+    public List<Ability> getAbilities() { return new ArrayList<>(abilities); }
+    @Override
+    public LootTable getLootTable() { return lootTable; }
+    
+    @Override
+    public void displayInfo() {
+        System.out.println("=== " + name + " (Dragon Boss) ===");
+        System.out.println("Health: " + health + " | Damage: " + damage + 
+                          " | Defense: " + defense + " | Speed: " + speed);
+        System.out.println("Element: " + element);
+        System.out.println("Abilities (" + abilities.size() + "):");
+        for (Ability ability : abilities) {
+            System.out.println("  - " + ability);
+        }
+        System.out.println("Boss Phases: " + phases.size());
+        for (Map.Entry<Integer, Integer> phase : phases.entrySet()) {
+            System.out.println("  Phase " + phase.getKey() + ": triggers at " + phase.getValue() + " HP");
+        }
+        System.out.println("AI Behavior: " + aiBehavior);
+        System.out.println("Can Fly: " + canFly + " | Breath Attack: " + hasBreathAttack + 
+                          " | Wingspan: " + wingspan);
+        if (lootTable != null) {
+            System.out.println(lootTable.getLootInfo());
+        }
+        System.out.println();
+    }
+    
+    @Override
+    public Enemy clone() {
+        List<Ability> clonedAbilities = new ArrayList<>();
+        for (Ability ability : this.abilities) {
+            clonedAbilities.add(ability.clone());
+        }
+        
+        return new DragonBoss(
+            this.name, this.health, this.damage, this.defense, this.speed,
+            this.element, clonedAbilities, new HashMap<>(this.phases),
+            this.lootTable != null ? this.lootTable.clone() : null,
+            this.aiBehavior, this.canFly, this.hasBreathAttack, this.wingspan
+        );
+    }
+    
+    @Override
+    public void multiplyStats(double multiplier) {
+        this.health = (int) (this.health * multiplier);
+        this.damage = (int) (this.damage * multiplier);
+        this.defense = (int) (this.defense * multiplier);
+        this.speed = (int) (this.speed * multiplier);
+    }
+    
+    @Override
+    public void setElement(String element) { this.element = element; }
+    
+    @Override
+    public void addAbility(Ability ability) { this.abilities.add(ability); }
 
 }

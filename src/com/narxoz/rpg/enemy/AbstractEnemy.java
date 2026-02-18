@@ -93,5 +93,5 @@ public abstract class AbstractEnemy implements Enemy {
     }
     
     @Override
-    public abstract AbstractEnemy clone();
+    public abstract Enemy clone();
 }
