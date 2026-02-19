@@ -96,4 +96,9 @@ public class Skeleton implements Enemy {
     
     @Override
     public void addAbility(Ability ability) { this.abilities.add(ability); }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
 }
