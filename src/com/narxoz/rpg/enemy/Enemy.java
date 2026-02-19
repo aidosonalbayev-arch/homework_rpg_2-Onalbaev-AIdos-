@@ -95,6 +95,7 @@ public interface Enemy {
     LootTable getLootTable();
     void displayInfo();
     Enemy clone();
+    void setName(String name);
     
     void multiplyStats(double multiplier);
     void setElement(String element);

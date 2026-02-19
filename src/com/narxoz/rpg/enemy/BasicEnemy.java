@@ -47,4 +47,9 @@ public class BasicEnemy extends AbstractEnemy {
         }
         return clone;
     }
+
+    @Override
+    public void setName(String name) {
+       this.name = name;
+    }
 }

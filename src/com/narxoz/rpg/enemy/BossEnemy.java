@@ -73,4 +73,9 @@ public class BossEnemy extends AbstractEnemy {
         
         return clone;
     }
+
+    @Override
+    public void setName(String name) {
+       this.name = name;
+    }
 }
