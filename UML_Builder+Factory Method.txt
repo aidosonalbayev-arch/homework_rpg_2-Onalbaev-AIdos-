@@ -1,0 +1,84 @@
+BUILDER + FACTORY METHOD PATTERN
+=================================
+
+INTERFACES AND CLASSES:
+
+[EnemyBuilder]
+
+    setName(String)
+    setHealth(int)
+    setDamage(int)
+    setDefense(int)
+    setSpeed(int)
+    setElement(String)
+    addAbility(Ability)
+    setAbilities(List<Ability>)
+    addPhase(int, int)
+    setLootTable(LootTable)
+    setAI(String)
+    build()  
+
+  1. [BasicEnemyBuilder]
+      Өрістері: name, health, damage, defense, speed, element, abilities, lootTable, aiBehavior
+     build() 
+
+  2. [BossEnemyBuilder]
+      Өрістері: name, health, damage, defense, speed, element, abilities, phases, lootTable, aiBehavior, canFly, hasBreathAttack, wingspan
+     build() , setCanFly(), setHasBreathAttack(), setWingspan()
+
+[EnemyDirector]
+builder (EnemyBuilder)
+
+    EnemyDirector(EnemyBuilder)
+    setBuilder(EnemyBuilder)
+    createMinion(EnemyComponentFactory) : Enemy
+    createElite(EnemyComponentFactory) : Enemy
+    createMiniBoss(EnemyComponentFactory) : Enemy
+    createRaidBoss(EnemyComponentFactory) : Enemy
+
+[Enemy]
+    getName()
+    setName(String)
+    getHealth()
+    getDamage()
+    getDefense()
+    getSpeed()
+    getElement()
+    setElement(String)
+    getAbilities()
+    getLootTable()
+    displayInfo()
+    clone()
+    multiplyStats(double)
+    addAbility(Ability)
+
+[AbstractEnemy]
+  Өрістері: name, health, damage, defense, speed, element, abilities, phases, lootTable, aiBehavior
+
+    getName(), setName(), getHealth(), getDamage(), getDefense(), getSpeed(), getElement(), setElement()
+    getAbilities(), getLootTable()
+    multiplyStats(), addAbility()
+    copyBasicStats(AbstractEnemy)
+    displayInfo() 
+    clone() 
+
+  1. [BasicEnemy]
+     displayInfo(), clone()
+
+  2. [BossEnemy]
+      Өрістері: canFly, hasBreathAttack, wingspan
+     displayInfo(), clone()
+
+  [Goblin]
+    Өрістері: name, health, damage, defense, speed, element, abilities, lootTable
+   displayInfo(), clone()
+
+  [DragonBoss]
+    Өрістері: name, health, damage, defense, speed, element, abilities, phases, lootTable, aiBehavior, canFly, hasBreathAttack, wingspan
+   displayInfo(), clone()
+
+  BasicEnemyBuilder -> BasicEnemy
+  BossEnemyBuilder -> BossEnemy
+  EnemyDirector -> EnemyBuilder (пайдаланады)
+  BasicEnemy, BossEnemy, Goblin, DragonBoss -> Enemy
+  BasicEnemy, BossEnemy -> AbstractEnemy

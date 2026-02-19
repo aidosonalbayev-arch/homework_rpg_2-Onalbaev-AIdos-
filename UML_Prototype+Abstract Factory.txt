@@ -1,0 +1,81 @@
+PROTOTYPE + ABSTRACT FACTORY PATTERN
+=====================================
+
+[Enemy] 
+   clone() , getName(), setName(), getHealth(), getDamage(), getDefense(), getSpeed(), getElement(), setElement(), getAbilities(), getLootTable(), displayInfo(), multiplyStats(), addAbility()
+
+  1. [Goblin]
+       clone(), displayInfo()
+
+  2. [Skeleton]
+       clone(), displayInfo()
+
+  3. [DragonBoss]
+       clone(), displayInfo()
+
+[EnemyRegistry]
+  : templates (Map<String, Enemy>)
+  
+    registerTemplate(String, Enemy)
+    createFromTemplate(String) : Enemy  
+    listTemplates()
+    hasTemplate(String)
+
+
+[EnemyComponentFactory] 
+  
+    createAbilities() : List<Ability>
+    createLootTable() : LootTable
+    createAIBehavior() : String
+
+  1. [FireComponentFactory]
+       createAbilities(), createLootTable(), createAIBehavior()
+
+  2. [IceComponentFactory]
+       createAbilities(), createLootTable(), createAIBehavior()
+
+  3. [ShadowComponentFactory]
+       createAbilities(), createLootTable(), createAIBehavior()
+
+
+[Ability] 
+   getName(), getDamage(), getDescription(), clone() 
+
+  [FlameBreath] - clone()
+  [FireShield] - clone()
+  [MeteorStorm] - clone()
+
+  [FrostBreath] - clone()
+  [IceShield] - clone()
+  [Blizzard] - clone()
+
+  [ShadowStrike] - clone()
+  [Vanish] - clone()
+  [DarkNova] - clone()
+
+
+[LootTable] 
+   getItems(), getGoldDrop(), getExperienceDrop(), getLootInfo(), clone() 
+
+  [FireLootTable]
+    : items, goldDrop, experienceDrop
+     clone()
+
+  [IceLootTable]
+    : items, goldDrop, experienceDrop
+     clone()
+
+  [ShadowLootTable]
+    : items, goldDrop, experienceDrop
+     clone()
+
+  FireComponentFactory -> FlameBreath, FireShield, MeteorStorm 
+  FireComponentFactory -> FireLootTable 
+  
+  IceComponentFactory -> FrostBreath, IceShield, Blizzard 
+  IceComponentFactory -> IceLootTable 
+  
+  ShadowComponentFactory -> ShadowStrike, Vanish, DarkNova 
+  ShadowComponentFactory -> ShadowLootTable 
+  
+  EnemyRegistry -> Enemy
