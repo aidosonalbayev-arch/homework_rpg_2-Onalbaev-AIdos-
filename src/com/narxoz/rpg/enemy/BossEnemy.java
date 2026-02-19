@@ -12,8 +12,8 @@ public class BossEnemy extends AbstractEnemy {
     private int wingspan;
     
     public BossEnemy(String name, int health, int damage, int defense, int speed,
-        String element, LootTable lootTable, String aiBehavior,
-        boolean canFly, boolean hasBreathAttack, int wingspan) {
+                     String element, LootTable lootTable, String aiBehavior,
+                     boolean canFly, boolean hasBreathAttack, int wingspan) {
         this.name = name;
         this.health = health;
         this.damage = damage;
@@ -21,12 +21,17 @@ public class BossEnemy extends AbstractEnemy {
         this.speed = speed;
         this.element = element;
         this.abilities = new ArrayList<>();
-        this.phases = new HashMap<>();
+        this.phases = new HashMap<>();  // phases инициализация
         this.lootTable = lootTable;
         this.aiBehavior = aiBehavior;
         this.canFly = canFly;
         this.hasBreathAttack = hasBreathAttack;
         this.wingspan = wingspan;
+    }
+    
+    // ADD PHASE METHOD - осы методты қосу керек
+    public void addPhase(int phaseNumber, int healthThreshold) {
+        this.phases.put(phaseNumber, healthThreshold);
     }
     
     @Override
@@ -63,7 +68,9 @@ public class BossEnemy extends AbstractEnemy {
         for (Ability ability : this.abilities) {
             clone.abilities.add(ability.clone());
         }
+        
         clone.phases = new HashMap<>(this.phases);
+        
         return clone;
     }
 }
