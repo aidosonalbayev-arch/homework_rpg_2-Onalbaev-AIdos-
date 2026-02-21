@@ -19,11 +19,11 @@ INTERFACES AND CLASSES:
     build()  
 
   1. [BasicEnemyBuilder]
-      Өрістері: name, health, damage, defense, speed, element, abilities, lootTable, aiBehavior
+     name, health, damage, defense, speed, element, abilities, lootTable, aiBehavior
      build() 
 
   2. [BossEnemyBuilder]
-      Өрістері: name, health, damage, defense, speed, element, abilities, phases, lootTable, aiBehavior, canFly, hasBreathAttack, wingspan
+     name, health, damage, defense, speed, element, abilities, phases, lootTable, aiBehavior, canFly, hasBreathAttack, wingspan
      build() , setCanFly(), setHasBreathAttack(), setWingspan()
 
 [EnemyDirector]
@@ -53,7 +53,7 @@ builder (EnemyBuilder)
     addAbility(Ability)
 
 [AbstractEnemy]
-  Өрістері: name, health, damage, defense, speed, element, abilities, phases, lootTable, aiBehavior
+ name, health, damage, defense, speed, element, abilities, phases, lootTable, aiBehavior
 
     getName(), setName(), getHealth(), getDamage(), getDefense(), getSpeed(), getElement(), setElement()
     getAbilities(), getLootTable()
@@ -66,19 +66,19 @@ builder (EnemyBuilder)
      displayInfo(), clone()
 
   2. [BossEnemy]
-      Өрістері: canFly, hasBreathAttack, wingspan
+     canFly, hasBreathAttack, wingspan
      displayInfo(), clone()
 
   [Goblin]
-    Өрістері: name, health, damage, defense, speed, element, abilities, lootTable
+   name, health, damage, defense, speed, element, abilities, lootTable
    displayInfo(), clone()
 
   [DragonBoss]
-    Өрістері: name, health, damage, defense, speed, element, abilities, phases, lootTable, aiBehavior, canFly, hasBreathAttack, wingspan
+   name, health, damage, defense, speed, element, abilities, phases, lootTable, aiBehavior, canFly, hasBreathAttack, wingspan
    displayInfo(), clone()
 
   BasicEnemyBuilder -> BasicEnemy
   BossEnemyBuilder -> BossEnemy
-  EnemyDirector -> EnemyBuilder (пайдаланады)
+  EnemyDirector -> EnemyBuilder
   BasicEnemy, BossEnemy, Goblin, DragonBoss -> Enemy
   BasicEnemy, BossEnemy -> AbstractEnemy
